@@ -1,0 +1,124 @@
+/**
+ * Category entity.
+ * @author Cinetica
+ * @date 05-11-2020
+ */
+entity Category{
+	name String,
+    descripcion String
+}
+
+/**
+ * Suceso entity.
+ * @author Cinetica
+ */
+entity Suceso{
+	suceso String
+    descripcion String
+    fechaSuceso Instant
+    creacion LocalDate
+    actualizacion Instant
+    tags String
+    imagen ImagenBlob
+    valoracion Valoracion
+}
+
+/** valoracion Valoracion,
+    *image String
+    */
+
+/**
+ * Entity comentario.
+ * @author Cinetica
+ */
+entity Comentario {
+	comentario String
+    detalles String
+ 	creado Instant
+    imagen ImagenBlob
+    contador Integer
+}
+
+/**
+ * User entity.
+ * @author Cinetica
+ */
+entity User{
+	userName String,
+    email String,
+    password String,
+    create Instant
+}
+
+/**
+ * Zona entity.
+ * @author Cinetica.
+ */
+entity Zona{
+	zona String,
+    actualizado Instant
+}
+
+/**
+ * Coordenadas entity.
+ * @author Cinetica
+ */
+entity Coordenadas{
+	name String,
+    active Boolean,
+    latitud String,
+    image String,
+    longitud String,
+}
+
+/**
+ * Rol entity.
+ * @author Cinetica
+ */
+entity Rol {
+	name String
+}
+
+ /**  detalles String
+   * userName String,
+   * image String */
+
+/**
+ * Relationship comentarios - suceso entity.
+ * @author Cinetica
+ */
+relationship ManyToOne {
+	Comentario{Suceso} to Suceso
+    Comentario{user} to User
+    Suceso{user} to User
+}
+
+/**
+ * Relationship suceso - category entity.
+ * @author Cinetica
+ */
+relationship ManyToOne {
+	Suceso{category} to Category
+    User{rol} to Rol
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Suceso to Coordenadas{coordenadas},
+	/**
+	* A relationship
+	*/
+	Coordenadas to
+	/**
+	* Another side of the same relationship
+	*/
+	Zona{coordenadas}
+}
+
+/**
+ * Suceso enum Valoracion.
+ * @author Cinetica
+ */
+enum Valoracion {
+	Baja, Media, Alta
+}
